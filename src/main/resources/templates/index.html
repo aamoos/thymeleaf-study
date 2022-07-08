@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>타임리프 예제</h1>
+    <h2>th:text 사용</h2>
+    <span th:text="${foodMap.food1}"></span><br>
+    <span>[[${foodMap.food1}]]</span><br>
+    <h2>th:utext 사용</h2>
+    <span th:text="${foodMap.food2}"></span><br>
+    <span>[[${foodMap.food2])]</span><br>
+    <h2>th:href 사용</h2>
+    <span><a th:href="@{https://www.naver.com}">링크</a></span><br>
+    <h2>th:value 사용</h2>
+    <span><input th:value="${foodMap.food4}" type="text"/></span><br>
+    <h2>#{...} messages.properties에서 선언한 값 가져와서 사용</h2>
+    <span th:text="#{test.id}"></span><br>
+    <span th:text="#{test.name}"></span><br>
+    <h2>if, unless 사용 (if랑 unless 조건이 같아야함!)</h2>
+    <span th:if="${foodMap.food1} == '치킨'">치킨이다!</span>
+    <span th:unless="${foodMap.food1} == '치킨'">치킨이 아니다 ㅠㅠ</span>
+    
+</body>
+</html>
