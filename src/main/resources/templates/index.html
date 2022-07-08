@@ -22,6 +22,15 @@
     <h2>if, unless 사용 (if랑 unless 조건이 같아야함!)</h2>
     <span th:if="${foodMap.food1} == '치킨'">치킨이다!</span>
     <span th:unless="${foodMap.food1} == '치킨'">치킨이 아니다 ㅠㅠ</span>
-    
+    <h2>th:with 사용 (c:set과 같은 느낌)</h2>
+    <span th:with="food='바뀐음식'">[[${food}]]</span>
+    <h2>component 사용</h2>
+    <span th:text="${@helloBean.hello('babo!')}">[[${food}]]</span>
+    <h2>식 기본객체</h2>
+    request : <span th:text="${#request}"></span><br>
+    response : <span th:text="${#response}"></span><br>
+    session : <span th:text="${#session}"></span><br>
+    servletContext : <span th:text="${#servletContext}"></span><br>
+    locale : <span th:text="${#locale}"></span><br>
 </body>
 </html>
