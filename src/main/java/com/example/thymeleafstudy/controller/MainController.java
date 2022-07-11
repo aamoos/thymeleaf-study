@@ -33,17 +33,12 @@ public class MainController {
         }
 
         model.addAttribute("list", list);
-
         model.addAttribute("foodMap", foodMap);
         model.addAttribute("localDateTime", LocalDate.now());
-
-        return "index.html";
-    }
-
-    @GetMapping("/date")
-    public String date(@NotNull Model model){
+        model.addAttribute("param1", "data1");
+        model.addAttribute("param2", "data2");
         model.addAttribute("localDateTime", LocalDate.now());
-        return "date.html";
+        return "index.html";
     }
 
     @Component("helloBean")

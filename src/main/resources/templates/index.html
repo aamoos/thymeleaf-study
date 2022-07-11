@@ -1,44 +1,135 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<link href="http://bootstrapk.com/examples/blog/blog.css" rel="stylesheet">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>타임리프 예제</h1>
-    <h2>th:text 사용</h2>
-    <span th:text="${foodMap.food1}"></span><br>
-    <span>[[${foodMap.food1}]]</span><br>
-    <h2>th:utext 사용</h2>
-    <span th:text="${foodMap.food2}"></span><br>
-    <span>[[${foodMap.food2])]</span><br>
-    <h2>th:href 사용</h2>
-    <span><a th:href="@{https://www.naver.com}">링크</a></span><br>
-    <h2>th:value 사용</h2>
-    <span><input th:value="${foodMap.food4}" type="text"/></span><br>
-    <h2>#{...} messages.properties에서 선언한 값 가져와서 사용</h2>
-    <span th:text="#{test.id}"></span><br>
-    <span th:text="#{test.name}"></span><br>
-    <h2>if, unless 사용 (if랑 unless 조건이 같아야함!)</h2>
-    <span th:if="${foodMap.food1} == '치킨'">치킨이다!</span>
-    <span th:unless="${foodMap.food1} == '치킨'">치킨이 아니다 ㅠㅠ</span>
-    <h2>th:with 사용 (c:set과 같은 느낌)</h2>
-    <span th:with="food='바뀐음식'">[[${food}]]</span>
-    <h2>component 사용</h2>
-    <span th:text="${@helloBean.hello('babo!')}">[[${food}]]</span>
-    <h2>식 기본객체</h2>
-    request : <span th:text="${#request}"></span><br>
-    response : <span th:text="${#response}"></span><br>
-    session : <span th:text="${#session}"></span><br>
-    servletContext : <span th:text="${#servletContext}"></span><br>
-    locale : <span th:text="${#locale}"></span><br>
-    <h2>th:each</h2>
-    <table border="1">
-        <tr th:each="list : ${list}">
-            <td th:text="${list.userName}"></td>
-            <td th:text="${list.userId}"></td>
-        </tr>
-    </table>
+    <div class="container">
+        <div class="blog-header">
+            <h1 class="blog-title">타임리프 예제</h1>
+            <p class="lead blog-description">타임리프 문법을 정리해놓은 예제입니다.</p>
+        </div>
 
+        <div class="col-sm-8 blog-main">
+            <div class="blog-post">
+                <h2>th:text 사용</h2>
+                <span th:text="${foodMap.food1}"></span><br>
+                '문자' + ' 더하기!' = <span th:text="'문자' + ' 더하기!'"></span><br>
+                '문자 더하기!' = <span th:text="'문자 더하기!'"></span><br>
+                '맛있는 ' + ${foodMap.food1} = <span th:text="'맛있는' + ${foodMap.food1}"></span><br>
+                리터럴 대체 :  <span th:text="|맛있는 ${foodMap.food1}|"></span><br>
+                <span>[[${foodMap.food1}]]</span><br><br>
+
+                <h2>th:utext 사용</h2>
+                <span th:text="${foodMap.food2}"></span><br>
+                <span>[[${foodMap.food2])]</span><br><br>
+
+                <h2>th:href 사용</h2>
+                <span><a th:href="@{https://www.naver.com}">링크</a></span><br><br>
+
+                <h2>link 사용</h2>
+                <ul>
+                    <li><a th:href="@{/hello}">basic url</a></li>
+                    <li><a th:href="@{/hello(param1=${param1}, param2=${param2})}">hello query param</a></li>
+                    <li><a th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}">path variable</a></li>
+                    <li><a th:href="@{/hello/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
+                </ul>
+                <br><br>
+
+                <h2>th:value 사용</h2>
+                <span><input th:value="${foodMap.food4}" type="text"/></span><br><br>
+
+                <h2>#{...} messages.properties에서 선언한 값 가져와서 사용</h2>
+                <span th:text="#{test.id}"></span><br>
+                <span th:text="#{test.name}"></span><br><br>
+
+                <h2>if, unless 사용 (if랑 unless 조건이 같아야함!)</h2>
+                <span th:if="${foodMap.food1} == '치킨'">치킨이다!</span><br><br>
+                <span th:unless="${foodMap.food1} == '치킨'">치킨이 아니다 ㅠㅠ</span>br><br>
+
+                <h2>switch-case문 사용</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>userName</th>
+                        <th>userId</th>
+                        <th>case</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="list : ${list}">
+                        <td th:text="${list.userName}"></td>
+                        <td th:text="${list.userId}"></td>
+                        <td th:switch="${list.userId}">
+                            <strong th:case="userId0">userId0</strong>
+                            <strong th:case="userId3">userId3</strong>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <h2>th:with 사용 (c:set과 같은 느낌)</h2>
+                <span th:with="food='바뀐음식'">[[${food}]]</span><br><br>
+
+                <h2>component 사용</h2>
+                <span th:text="${@helloBean.hello('babo!')}">[[${food}]]</span><br><br>
+
+                <h2>식 기본객체</h2>
+                request : <span th:text="${#request}"></span><br>
+                response : <span th:text="${#response}"></span><br>
+                session : <span th:text="${#session}"></span><br>
+                servletContext : <span th:text="${#servletContext}"></span><br>
+                locale : <span th:text="${#locale}"></span><br><br>
+
+                <h2>타임리프 날짜 지원 라이브러리 사용</h2>
+                default : <span th:text="${localDateTime}"></span><br>
+                yyyy-MM-dd HH:mm:ss : <span th:text="${#temporals.format(localDateTime, 'yyyy-MM-dd HH:mm:ss')}"></span> <br>
+                yyyy-MM-dd/a hh:mm : <span th:text="${#temporals.format(localDateTime, 'yyyy-MM-dd/a hh:mm')}"></span><br>
+                ${#temporals.day(localDateTime)} : <span th:text="${#temporals.day(localDateTime)}"></span><br>
+                ${#temporals.month(localDateTime)} : <span th:text="${#temporals.monthName(localDateTime)}"></span><br>
+                ${#temporals.monthNameShort(localDateTime)} : <span th:text="${#temporals.monthNameShort(localDateTime)}"></span><br>
+                ${#temporals.year(localDateTime)} : <span th:text="${#temporals.year(localDateTime)}"></span><br>
+                ${#temporals.dayOfWeek(localDateTime)} : <span th:text="${#temporals.dayOfWeek(localDateTime)}"></span><br>
+                ${#temporals.dayOfWeekName(localDateTime)} : <span th:text="${#temporals.dayOfWeekName(localDateTime)}"></span><br>
+                ${#temporals.dayOfWeekNameShort(localDateTime)} : <span th:text="${#temporals.dayOfWeekNameShort(localDateTime)}"></span><br>
+                <br>
+
+                <h2>attribute 활용</h2>
+                - th:classappend : <input type="text" class="text" th:attrappend="class= ' large'" /><br>
+                - checked o : <input type="checkbox" name="active" th:checked="true" /><br>
+                - checked x : <input type="checkbox" name="active" th:checked="false" /><br>
+                <br><br>
+
+                <h2>th:each</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>userName</th>
+                        <th>userId</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="list : ${list}">
+                        <td th:text="${list.userName}"></td>
+                        <td th:text="${list.userId}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+             </div>
+        </div>
+    </div>
 </body>
 </html>
