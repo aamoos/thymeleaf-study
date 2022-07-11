@@ -32,5 +32,13 @@
     session : <span th:text="${#session}"></span><br>
     servletContext : <span th:text="${#servletContext}"></span><br>
     locale : <span th:text="${#locale}"></span><br>
+    <h2>th:each</h2>
+    <table border="1">
+        <tr th:each="list : ${list}">
+            <td th:text="${list.userName}"></td>
+            <td th:text="${list.userId}"></td>
+        </tr>
+    </table>
+
 </body>
 </html>
